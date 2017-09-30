@@ -1,4 +1,6 @@
-
+/**
+ * Practice4Test
+ */
 public class Practice4Test {
 	
 	protected Queue queue;
@@ -7,12 +9,10 @@ public class Practice4Test {
 	protected final String[] expressionList = {"level", "Anna", "A nut for a jar of tuna!"};
 	protected final String[] wrongList = {"first", "Matter fact", "Landed on his hip and busted his lip"};
 	
-	
 	public Practice4Test() {
 		queue = new ArrayQueue();
 		stack = new ArrayStack();
 	}
-	
 	
 	public void clearData() {
 		while (!queue.empty()) {
@@ -22,7 +22,6 @@ public class Practice4Test {
 			stack.pop();
 		}
 	}
-	
 	
 	public boolean isPalindrome(String item) {
 		clearData();
@@ -38,12 +37,12 @@ public class Practice4Test {
 		}
 		
 		// At this point, the stack AND the queue should be empty. But check in case...
-		if (!stack.empty() || ! queue.empty())
+		if (!stack.empty() || ! queue.empty()) {
 			return false;
+		}
 		
 		return true;
 	}
-	
 	
 	public void runTest() {
 		// Theory: The Queue and Stack constructors have been called.
