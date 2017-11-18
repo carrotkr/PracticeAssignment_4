@@ -2,44 +2,85 @@
  * ArrayStack
  */
 public class ArrayStack implements Stack {
-
-	private class Node {
-		Object item;
-		Node next;
-	}
 	
-	private Node first;
-	private int n;
+	private Object[] values;
+	private int numOfElements;
 	
+	/**
+	 * ArrayStack
+	 */
+	public ArrayStack() {
+		values = new Object[2];
+		numOfElements = 0;
+    }
+	
+	/**
+	 * resize
+	 * 
+	 * @param
+	 */
+    private void resize(int sizeCap) {
+        Object[] temp = new Object[sizeCap];
+        
+        for (int i = 0; i < numOfElements; i++) {
+            temp[i] = values[i];
+        }
+        
+        values = temp;
+    }
+	
+	/**
+	 * push
+	 * 
+	 * @param
+	 */
 	@Override
 	public void push(Object item) {
-		Node beforeFirst = first;
-		first = new Node();
+		if (numOfElements == values.length) {
+				resize(2*values.length);
+		}
 		
-		first.item = item;
-		first.next = beforeFirst;
-		
-		n++;
+		values[numOfElements++] = item;
 	}
 
+	/**
+	 * pop
+	 * 
+	 * @return
+	 */
 	@Override
 	public Object pop() {
-		Object item = first.item;
-		first = first.next;
+		Object item = values[numOfElements-1];
 		
-		n--;
+		values[numOfElements-1] = null;
+		
+		numOfElements--;
+		
+		if ((numOfElements > 0) && (numOfElements == values.length/4)) {
+    			resize(values.length/2);
+		}
 		
 		return item;
 	}
-	
+
+	/**
+	 * peek
+	 * 
+	 * @return
+	 */
 	@Override
 	public Object peek() {
-		return null;
+		return values[numOfElements-1];
 	}
 
+	/**
+	 * empty
+	 * 
+	 * @return
+	 */
 	@Override
 	public boolean empty() {
-		return first == null;
+		return (numOfElements == 0);
 	}
 
 }
