@@ -9,22 +9,36 @@ public class Practice4Test {
 	protected final String[] expressionList = {"level", "Anna", "A nut for a jar of tuna!"};
 	protected final String[] wrongList = {"first", "Matter fact", "Landed on his hip and busted his lip"};
 	
+	/**
+	 * Practice4Test
+	 */
 	public Practice4Test() {
 		queue = new ArrayQueue();
 		stack = new ArrayStack();
 	}
 	
+	/**
+	 * clearData
+	 */
 	public void clearData() {
 		while (!queue.empty()) {
 			queue.dequeue();
 		}
+		
 		while (!stack.empty()) {
 			stack.pop();
 		}
 	}
 	
+	/**
+	 * isPalindrome
+	 * 
+	 * @param
+	 * @return
+	 */
 	public boolean isPalindrome(String item) {
 		clearData();
+		
 		for (int i = 0; i < item.length(); i++) {
 			stack.push(item.substring(i, i+1));
 			queue.enqueue(item.substring(i, i+1));
@@ -134,5 +148,5 @@ public class Practice4Test {
 		Practice4Test test = new Practice4Test();
 		test.runTest();
 	}
-
+	
 }
