@@ -2,50 +2,92 @@
  * ArrayQueue
  */
 public class ArrayQueue implements Queue {
+	
+	private Object[] values;
+	private int numOfElements;
+	private int first;
+	private int last;
+	
+	/**
+	 * ArrayQueue
+	 */
+	public ArrayQueue() {
+		values = new Object[2];
+		numOfElements = 0;
+        first = 0;
+        last = 0;
+    }
+	
+	/**
+	 * resize
+	 * 
+	 * @param
+	 */
+	 private void resize(int sizeCap) {
+		 Object[] temp = new Object[sizeCap];
 
-	private class Node {
-		Object item;
-		Node next;
-	}
+		 for (int i = 0; i < numOfElements; i++) {
+			 temp[i] = values[(first + i) % values.length];
+		 }
+	        
+		 values = temp;
+		 first = 0;
+		 last = numOfElements;
+	 }
 	
-	private Node first;
-	private Node last;
-	private int n;
-	
+	/**
+	 * enqueue
+	 * 
+	 * @param
+	 */
 	@Override
 	public void enqueue(Object item) {
-		Node beforeLast = last;
-		last = new Node();
-		
-		last.item = item;
-		last.next = null;
-		
-		if (empty()) {
-			first = last;
-		} else {
-			beforeLast.next = last;
+		if (numOfElements == values.length) {
+			resize(2*values.length);   
 		}
 		
-		n++;
+		values[last++] = item;
+		
+		if (last == values.length) {
+			last = 0;
+		}
+
+		numOfElements++;
 	}
-	
+
+	/**
+	 * dequeue
+	 * 
+	 * @return
+	 */
 	@Override
 	public Object dequeue() {
-		Object item = first.item;
-		first = first.next;
+		Object item = values[first];
 		
-		n--;
+		values[first] = null;
 		
-		if (empty()) {
-			last = null;
+		numOfElements--;
+		first++;
+		
+		if (first == values.length) {
+			first = 0;
+		}
+		
+		if (numOfElements > 0 && numOfElements == values.length/4) {
+    			resize(values.length/2); 
 		}
 		
 		return item;
 	}
 
+	/**
+	 * empty
+	 * 
+	 * @return
+	 */
 	@Override
 	public boolean empty() {
-		return first == null;
+		return (numOfElements == 0);
 	}
-
+	
 }
