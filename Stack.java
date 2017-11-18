@@ -1,3 +1,6 @@
+/**
+ * Stack
+ */
 public interface Stack {
 	
 	public void push(Object item);
