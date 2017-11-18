@@ -1,3 +1,6 @@
+/**
+ * Queue
+ */
 public interface Queue {
 	
 	public void enqueue(Object item);
@@ -5,5 +8,5 @@ public interface Queue {
 	public Object dequeue();	
 	
 	public boolean empty();
-
+	
 }
